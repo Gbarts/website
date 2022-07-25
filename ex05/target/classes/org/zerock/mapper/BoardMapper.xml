@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace = "org.zerock.mapper.BoardMapper">
+	
+	<select id="getList" resultType="org.zerock.domain.BoardVO">
+	<![CDATA[select * from new_board  where bno > 0 order by bno desc]]>
+	</select>
+	
+	<update id="insert2">
+	<![CDATA[
+	update new_board 
+	set
+	checklist = '완료',
+	updateDate = sysdate
+	where bno = #{bno}
+	]]>
+	</update>
+	
+	<select id="read" resultType="org.zerock.domain.BoardVO">
+	<![CDATA[
+	select * from new_board where bno = #{bno}
+	]]>
+	</select>
+	
+	<insert id="insert">
+	<![CDATA[insert into new_board (bno,content,regdate,checklist)
+	values (seq_board.nextval,#{content},#{regdate},'미완료')]]>
+	</insert>
+	
+	<delete id="delete">
+	<![CDATA[delete from new_board where bno = #{bno}]]>
+	</delete>
+	
+	<update id="update">
+	<![CDATA[update new_board 
+		set
+		content = #{content},
+		updateDate = sysdate
+		where bno = #{bno}
+	]]>
+	</update>
+	</mapper>
